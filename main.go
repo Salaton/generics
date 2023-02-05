@@ -58,5 +58,15 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	user := reqres.User{
+		Name: "Salaton Doe",
+		Job:  "Software Engineer",
+	}
+	newUser, err := reqres.Post[reqres.User](requestContext, "https://reqres.in/api/users", user)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(newUser)
 	fmt.Println(m.Data)
 }

@@ -1,5 +1,7 @@
 package reqres
 
+import "time"
+
 type RequestObject struct {
 	Page       int     `json:"page"`
 	PerPage    int     `json:"per_page"`
@@ -20,4 +22,11 @@ type Data struct {
 type Support struct {
 	URL  string `json:"url"`
 	Text string `json:"text"`
+}
+
+type User struct {
+	Name      string    `json:"name,omitempty"`
+	Job       string    `json:"job,omitempty"`
+	ID        string    `json:"id,omitempty"`
+	CreatedAt time.Time `json:"createdAt,omitempty"`
 }
