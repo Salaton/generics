@@ -1,6 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"context"
+	"fmt"
+	"log"
+	"time"
+
+	"github.com/Salaton/generics/reqres"
+)
 
 // The function below only takes integers as the arguments --> Convert it to generic
 // Sum returns the sum of the provided arguments.
@@ -41,8 +48,15 @@ type id int64
 func main() {
 	fmt.Println(Sum([]int{1, 2, 3}...))
 	fmt.Println(Sum([]int8{1, 2, 3}...))
-	fmt.Println(Sum([]uint32{1, 2, 3}...))
-	fmt.Println(Sum([]float64{1.1, 2.2, 3.3}...))
-	fmt.Println(Sum([]complex128{1.1i, 2.2i, 3.3i}...))
 	fmt.Println(Sum([]id{1, 2, 3}...))
+
+	ctx := context.Background()
+	timeout := 30 * time.Second
+
+	requestContext, _ := context.WithTimeout(ctx, timeout)
+	m, err := reqres.Get[reqres.RequestObject](requestContext, "https://reqres.in/api/users?page=2")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(m.Data)
 }
